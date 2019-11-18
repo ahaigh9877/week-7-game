@@ -13,12 +13,13 @@ router.post("/user", (req, res, next) => {
     username: req.body.username,
     password: bcryptjs.hashSync(req.body.password, 10)
   };
-  console.log("U S E R : ", user);
-  User.create(user)
-    .then(user => {
-      res.status(200).send({ user });
-    })
-    .catch(next);
+  if (user.username !== "" && user.password !== "") {
+    User.create(user)
+      .then(user => {
+        res.status(200).send({ user });
+      })
+      .catch(next);
+  }
 });
 
 router.get("/users", (req, res, next) => {
