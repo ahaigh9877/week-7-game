@@ -16,12 +16,13 @@ router.post("/user", (req, res, next) => {
   console.log("U S E R : ", user);
   User.create(user)
     .then(user => {
-      res.status(200).send({ message: "it done worked", user });
+      res.status(200).send({ user });
     })
     .catch(next);
 });
 
 router.get("/users", (req, res, next) => {
+  console.log("Request???");
   User.findAll().then(users => {
     res.send(users);
   });

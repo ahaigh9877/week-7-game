@@ -9,11 +9,14 @@ const auth = require("./middleware");
 
 // define endpoints here
 router.post("/login", (req, res, next) => {
+  console.log("reqest body", req.body);
   const { username, password } = req.body;
+  console.log("username password ", username, password);
 
   if (!username || !password) {
+    console.log("?????");
     res.status(400).send({
-      message: "give me a name and a password now please do it now now now."
+      message: "give me a name and a password"
     });
   } else {
     // 1. find user based on username
@@ -23,17 +26,15 @@ router.post("/login", (req, res, next) => {
         username: username
       }
     })
-      .then(entity => {
-        if (!entity) {
+      .then(user => {
+        if (!user) {
           res.status(400).send({
             message: "You do not exist. Please disappear."
           });
           // 2. use bcryptjs.compareSync to check the password against the stored hash
-        } else if (bcryptjs.compareSync(password, entity.password)) {
+        } else if (bcryptjs.compareSync(password, user.password)) {
           // 3. if the password is correct, return a JWT with the userId of the user (user.id)
-          res.send({
-            jwt: toJWT({ userId: entity.id })
-          });
+          res.send(user);
         } else {
           res.status(400).send({
             message: "You got your password wrong you moron"
