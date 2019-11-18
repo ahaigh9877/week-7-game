@@ -21,15 +21,4 @@ router.post("/user", (req, res, next) => {
     .catch(next);
 });
 
-/*======================= Endpoint: USER LOGIN ==============================*/
-
-router.post("/user", (req, res, next) => {
-  const user = {
-    username: req.body.username,
-    password: bcryptjs.hashSync(req.body.password, 10)
-  };
-
-  // if user
-});
-
 module.exports = router;
