@@ -21,4 +21,10 @@ router.post("/user", (req, res, next) => {
     .catch(next);
 });
 
+router.get("/users", (req, res, next) => {
+  User.findAll().then(users => {
+    res.send(users);
+  });
+});
+
 module.exports = router;
