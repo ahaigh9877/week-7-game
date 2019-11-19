@@ -13,7 +13,6 @@ function auth(req, res, next) {
       User.findByPk(data.userId)
         .then(user => {
           if (!user) return next("User does not exist");
-          /// urgh, what is this line for...?
           req.user = user;
           next();
         })

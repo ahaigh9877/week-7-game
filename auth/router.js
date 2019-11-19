@@ -9,35 +9,33 @@ const auth = require("./middleware");
 
 // define endpoints here
 router.post("/login", (req, res, next) => {
-  console.log("reqest body", req.body);
   const { username, password } = req.body;
   console.log("username password ", username, password);
 
   if (!username || !password) {
-    console.log("?????");
+    console.log("No username / no password");
     res.status(400).send({
       message: "give me a name and a password"
     });
   } else {
-    // 1. find user based on username
-
     User.findOne({
       where: {
         username: username
       }
     })
       .then(user => {
+        console.log("user: ", user);
         if (!user) {
           res.status(400).send({
-            message: "You do not exist. Please disappear."
+            message: "You do not exist."
           });
-          // 2. use bcryptjs.compareSync to check the password against the stored hash
         } else if (bcryptjs.compareSync(password, user.password)) {
-          // 3. if the password is correct, return a JWT with the userId of the user (user.id)
+          console.log("bcrypt check");
+          // Send JWT here too.
           res.send(user);
         } else {
           res.status(400).send({
-            message: "You got your password wrong you moron"
+            message: "You got your password wrong."
           });
         }
       })
