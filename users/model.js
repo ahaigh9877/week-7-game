@@ -12,6 +12,10 @@ const User = db.define(
     password: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    loggedin: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
     }
   },
   {
