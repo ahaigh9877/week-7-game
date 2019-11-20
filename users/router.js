@@ -2,31 +2,40 @@ const express = require("express");
 const bcryptjs = require("bcryptjs");
 
 const { Router } = express;
-const router = new Router();
 
 const User = require("./model");
 
 /*======================= Endpoint: NEW USER ==============================*/
 
-router.post("/user", (req, res, next) => {
-  const user = {
-    username: req.body.username,
-    password: bcryptjs.hashSync(req.body.password, 10)
-  };
-  if (user.username !== "" && user.password !== "") {
-    User.create(user)
-      .then(user => {
-        res.status(200).send({ user });
-      })
-      .catch(next);
-  }
-});
+function userFactory(stream) {
+  const router = new Router();
 
-router.get("/users", (req, res, next) => {
-  console.log("Request???");
-  User.findAll().then(users => {
-    res.send(users);
+  router.post("/user", async (req, res, next) => {
+    const user = {
+      username: req.body.username,
+      password: bcryptjs.hashSync(req.body.password, 10)
+    };
+    if (user.username !== "" && user.password !== "") {
+      const newUser = await User.create(user);
+      const action = { type: "NEW_USER", payload: newUser };
+      const string = JSON.stringify(action);
+      stream.send(string);
+      res
+        .status(200)
+        .send(newUser)
+        .catch(next);
+    }
   });
-});
 
-module.exports = router;
+  router.get("/users", async (req, res, next) => {
+    const allUsers = await User.findAll();
+    const action = { type: "ALL_USERS", payload: allUsers };
+    const string = JSON.stringify(action);
+    stream.send(string);
+    res.send(allUsers);
+  });
+
+  return router;
+}
+
+module.exports = userFactory;
