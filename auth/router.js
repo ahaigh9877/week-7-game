@@ -26,6 +26,7 @@ router.post("/login", (req, res, next) => {
           res.status(400).send({
             message: "You do not exist."
           });
+
         } else if (bcryptjs.compareSync(password, user.password)) {          
           res.send({
             jwt: toJWT({ userId: user.id }),
