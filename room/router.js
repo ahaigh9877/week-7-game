@@ -21,24 +21,23 @@ function roomFactory(stream) {
     res.send(room);
   });
 
-  router.put("/join/:name", auth, async (req, res, next) => {
+  router.put("/join/:name", auth, async (req, res) => {
     const { user } = req;
+
     const { name } = req.params;
 
     const room = await Room.findOne({ where: { name } });
-    console.log("room, ", room.users);
 
-    // lowercase because it's THIS user, rather than all users
     const updatedUser = await user.update({ roomId: room.id });
 
     const rooms = await Room.findAll({ include: [User] });
-
-    const action = { type: "ROOMS", payload: rooms };
+    const action = {
+      type: "ROOMS",
+      payload: rooms
+    };
 
     const string = JSON.stringify(action);
-
     stream.send(string);
-
     res.send(updatedUser);
   });
 
