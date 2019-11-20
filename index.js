@@ -2,9 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const Sse = require("json-sse");
-const userRouter = require("./users/router");
+// const userRouter = require("./users/router");
 const loginRouter = require("./auth/router");
 const roomFactory = require("./room/router");
+const userFactory = require("./users/router");
 const Room = require("./room/model");
 const User = require("./users/model");
 
@@ -34,7 +35,7 @@ app.get("/stream", async (req, res) => {
 
 const roomRouter = roomFactory(stream);
 app.use(roomRouter);
-
+const userRouter = userFactory(stream);
 app.use(userRouter);
 app.use(loginRouter);
 
