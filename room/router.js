@@ -9,10 +9,11 @@ function roomFactory(stream) {
 
   router.post("/rooms", async (req, res) => {
     const room = await Room.create(req.body);
-
+    console.log({room});
     const action = {
       type: "ROOM",
-      payload: room
+      //payload: room
+      payload: {...room.dataValues, users: []}
     };
 
     const string = JSON.stringify(action);
