@@ -31,16 +31,17 @@ function userFactory(stream) {
   });
 
   router.get("/users", async (req, res, next) => {
-    const allUsers = await User.findAll();
+    console.log("/users");
+    const users = await User.findAll();
 
     const action = {
       type: "ALL_USERS",
-      payload: allUsers
+      payload: users
     };
 
     const string = JSON.stringify(action);
     stream.send(string);
-    res.send(allUsers);
+    res.send(users);
   });
 
   return router;

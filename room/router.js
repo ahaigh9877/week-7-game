@@ -41,6 +41,21 @@ function roomFactory(stream) {
     res.send(updatedUser);
   });
 
+  router.put("/leave/:name", auth, async (req, res) => {
+    console.log("LEAVE ROOM req", req.body);
+    const { user } = req;
+    const updatedUser = await user.update({ roomId: null });
+    const rooms = await Room.findAll({ include: [User] });
+    const action = {
+      type: "ROOMS",
+      payload: rooms
+    };
+
+    const string = JSON.stringify(action);
+    stream.send(string);
+    res.send(updatedUser);
+  });
+
   return router;
 }
 
