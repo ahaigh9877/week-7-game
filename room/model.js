@@ -19,5 +19,6 @@ const Room = db.define(
 );
 
 User.belongsTo(Room)
+Room.hasMany(User)
 
 module.exports = Room;
