@@ -16,6 +16,10 @@ const User = db.define(
     score: {
       type: Sequelize.INTEGER,
       defaultValue: 0
+    },
+    previousChoice : {
+      type: Sequelize.INTEGER,
+      defaultValue: null
     }
   },
   {
