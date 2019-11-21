@@ -17,9 +17,13 @@ const User = db.define(
       type: Sequelize.INTEGER,
       defaultValue: 0
     },
-    previousChoice : {
+    choiceId: {
       type: Sequelize.INTEGER,
       defaultValue: null
+    },  
+    previousChoice : {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
     }
   },
   {
