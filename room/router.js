@@ -9,11 +9,11 @@ function roomFactory(stream) {
 
   router.post("/rooms", async (req, res) => {
     const room = await Room.create(req.body);
-    console.log({room});
+    console.log({ room });
     const action = {
       type: "ROOM",
       //payload: room
-      payload: {...room.dataValues, users: []}
+      payload: { ...room.dataValues, users: [] }
     };
 
     const string = JSON.stringify(action);
@@ -54,6 +54,29 @@ function roomFactory(stream) {
 
     const string = JSON.stringify(action);
     stream.send(string);
+    res.send(updatedUser);
+  });
+
+  router.put("/score/:userId", async (req, res, next) => {
+    const { userId } = req.params;
+    const user = await User.findByPk(userId);
+
+    console.log("user score endpoint: user: ", user);
+
+    const updatedUser = await user.update({ score: user.score + 1 });
+    console.log("updated user", updatedUser);
+
+    const rooms = await Room.findAll({ include: [User] });
+
+    const action = {
+      type: "ROOMS",
+      payload: rooms
+    };
+
+    const string = JSON.stringify(action);
+
+    stream.send(string);
+
     res.send(updatedUser);
   });
 
