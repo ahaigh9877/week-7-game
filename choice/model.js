@@ -7,9 +7,7 @@ const Choice = db.define(
   {
     choice: {
       type: Sequelize.STRING
-    }
-  },
-  {
+    },
     image_url: {
       type: Sequelize.STRING
     }
@@ -20,6 +18,6 @@ const Choice = db.define(
   }
 );
 
-Choice.belongsTo(User);
+User.belongsTo(Choice)
 
 module.exports = Choice;

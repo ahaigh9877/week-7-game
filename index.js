@@ -7,6 +7,7 @@ const userFactory = require("./users/router");
 const roomFactory = require('./room/router')
 const Room = require('./room/model')
 const User = require('./users/model')
+const Choice = require('./choice/model')
 const app = express();
 const port = process.env.PORT || 4000;
 const corsMiddleware = cors();
