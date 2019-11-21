@@ -18,6 +18,18 @@ const Choice = db.define(
   }
 );
 
-User.belongsTo(Choice)
+const choices = [
+  { choice: "paper", image_url: "url1" },
+  { choice: "rock", image_url: "url2" },
+  { choice: "scissors", image_url: "url3" }
+];
+
+User.belongsTo(Choice);
+
+const initialDb = Choice.findAll().then(() => {
+  if (initialDb.length === 0) {
+    Choice.bulkCreate(choices);
+  }
+});
 
 module.exports = Choice;

@@ -13,12 +13,9 @@ const User = db.define(
       type: Sequelize.STRING,
       allowNull: false
     },
-    loggedin: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
-    },
     score: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
+      defaultValue: 0
     }
   },
   {
