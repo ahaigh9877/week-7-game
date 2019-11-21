@@ -57,15 +57,12 @@ function roomFactory(stream) {
     res.send(updatedUser);
   });
 
-  router.put("/score/:userId", async (req, res, next) => {
-    const { userId } = req.params;
-    const user = await User.findByPk(userId);
+  router.put("/game/:username/:choice", async (req, res, next) => {
+    const { username, choice } = req.params;
+    const user = await User.findOne({where: {username: username}});
 
-    console.log("user score endpoint: user: ", user);
-
-    const updatedUser = await user.update({ score: user.score + 1 });
-    console.log("updated user", updatedUser);
-
+    const updatedUser = await user.update({ choiceId: choice });
+    
     const rooms = await Room.findAll({ include: [User] });
 
     const action = {
