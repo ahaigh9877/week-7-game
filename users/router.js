@@ -31,7 +31,6 @@ function userFactory(stream) {
   });
 
   router.get("/users", async (req, res, next) => {
-    console.log("/users");
     const users = await User.findAll();
 
     const action = {
