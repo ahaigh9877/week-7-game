@@ -76,6 +76,7 @@ function roomFactory(stream) {
     const users = await User.findAll({ where: { roomId: user.roomId } });
     //console.log("USERS: ", users);
 
+    // for each outcome copy current score to previous score.
     if (users[0].choiceId === 1 && users[1].choiceId === 1) {
       await users[0].update({ choiceId: null, previousChoice: 1 });
       await users[1].update({ choiceId: null, previousChoice: 1 });
