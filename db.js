@@ -10,3 +10,5 @@ db.sync({ force: true })
   .catch(console.error);
 
 module.exports = db;
+
+//fuck cuckl
