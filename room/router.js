@@ -90,7 +90,8 @@ function roomFactory(stream) {
       await users[0].update({
         score: users[0].score + 1,
         choiceId: null,
-        previousChoice: 1
+        previousChoice: 1,
+        previousScore: users[0].score
       });
       await users[1].update({ choiceId: null, previousChoice: 2 });
     } else if (users[0].choiceId === 1 && users[1].choiceId === 3) {
@@ -98,13 +99,15 @@ function roomFactory(stream) {
       await users[1].update({
         score: users[1].score + 1,
         choiceId: null,
-        previousChoice: 3
+        previousChoice: 3,
+        previousScore: users[1].score
       });
     } else if (users[0].choiceId === 2 && users[1].choiceId === 3) {
       await users[0].update({
         score: users[0].score + 1,
         choiceId: null,
-        previousChoice: 2
+        previousChoice: 2,
+        previousScore: users[0].score
       });
       await users[1].update({ choiceId: null, previousChoice: 3 });
     } else if (users[0].choiceId === 2 && users[1].choiceId === 1) {
@@ -112,13 +115,15 @@ function roomFactory(stream) {
       await users[1].update({
         score: users[1].score + 1,
         choiceId: null,
-        previousChoice: 1
+        previousChoice: 1,
+        previousScore: users[1].score
       });
     } else if (users[0].choiceId === 3 && users[1].choiceId === 1) {
       await users[0].update({
         score: users[0].score + 1,
         choiceId: null,
-        previousChoice: 3
+        previousChoice: 3,
+        previousScore: users[0].score
       });
       await users[1].update({ choiceId: null, previousChoice: 1 });
     } else if (users[0].choiceId === 3 && users[1].choiceId === 2) {
@@ -126,7 +131,8 @@ function roomFactory(stream) {
       await users[1].update({
         score: users[1].score + 1,
         choiceId: null,
-        previousChoice: 2
+        previousChoice: 2,
+        previousScore: users[1].score
       });
     }
 
