@@ -5,8 +5,6 @@ const { Router } = express;
 
 const User = require("./model");
 
-/*======================= Endpoint: NEW USER ==============================*/
-
 function userFactory(stream) {
   const router = new Router();
 
